@@ -4,21 +4,32 @@
 int read_file(char** arr);
 int write_file();
 int read(char *buffer[]);
+int read_one(char** buffer, FILE *fp);
 
 
 //g++ -Wall 
 int main()
 {
+    FILE *fp;
+    fp = fopen("test.txt", "r");
+
     //char** arr = (char**)malloc(100*255);
     char* buffer[100];
+    char* buff;
+    buff = (char*)malloc(255);
     int rv = 0;
-    write_file();
+    //write_file();
     //read_file(arr);
-    rv = read(buffer);
-    printf("%s\n", buffer[0]);
-    printf("%s\n", buffer[2]);
-    printf("%s\n", buffer[7]);
-
+    // rv = read(buffer);
+    // printf("%s\n", buffer[0]);
+    // printf("%s\n", buffer[2]);
+    // printf("%s\n", buffer[7]);
+    read_one(&buff, fp);
+    printf("%s\n", buff);
+    read_one(&buff, fp);
+    printf("%s\n", buff);
+    read_one(&buff, fp);
+    printf("%s\n", buff);
 }
 
 
@@ -39,6 +50,15 @@ int read_file(char** arr) {
 
    return 0;
 }
+
+int read_one(char** buffer, FILE *fp) {
+    
+    char buff[255];
+    fgets(buff, 255, (FILE*)fp);
+    strcpy(*buffer,buff);
+    return 0;
+}
+
 
 int read(char *buffer[]) {
     FILE *fp;
